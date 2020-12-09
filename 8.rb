@@ -21,7 +21,7 @@ def run(program)
       puts "cycle at #{ip}"
       return false
     end
-    old_ip = ip
+    #old_ip = ip
     case inst.opcode
     when 'acc'
       ax += inst.arg
