@@ -38,7 +38,6 @@ read_my_ticket
 read_other_tickets
 
 test_vals = (0...$my_ticket.size).map { Array.new }
-
 bad_sum = 0
 ranges = $notes.values.flatten
 $other_tickets.each do |ticket|
@@ -58,7 +57,7 @@ $other_tickets.each do |ticket|
 end
 puts "error rate: #{bad_sum}"
 
-possibilities = [[]] * $my_ticket.size
+possibilities = []
 test_vals.each_with_index do |slate, index|
   poss = []
   #puts "slate #{index}: #{slate.join(',')}"
