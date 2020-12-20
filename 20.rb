@@ -210,3 +210,52 @@ for y in 1...w
 end
 
 print_puzzle
+
+picture = []
+$puzzle.each do |pr|
+  for i in 1...$ts - 1
+    line = ''
+    for x in 0...$w
+      tile = $tiles[pr[x]]
+      line += tile.data[i][1..-2]
+    end
+    picture << line
+  end
+end
+
+#puts picture
+
+SEA_MONSTER = ["                  #","#    ##    ##    ###"," #  #  #  #  #  #"]
+SEA_MONSTER_HEIGHT = SEA_MONSTER.size
+SEA_MONSTER_WIDTH = SEA_MONSTER.map(&:size).max
+$sea_monster_coords = []
+SEA_MONSTER.each_with_index do |row, y|
+  row.chars.each_with_index do |char, x|
+    $sea_monster_coords << [y, x] if char == '#'
+  end
+end
+
+def mark_sea_monsters!(thing)
+  count = 0
+  for y in 0...(thing.size - SEA_MONSTER_HEIGHT)
+    for x in 0...(thing[0].size - SEA_MONSTER_WIDTH)
+      if $sea_monster_coords.all? { |sy, sx| thing[y + sy][x + sx] == '#' }
+        count += 1
+        $sea_monster_coords.each { |sy, sx| thing[y + sy][x + sx] = 'O' }
+      end
+    end
+  end
+  count
+end
+
+2.times do
+  4.times do
+    if mark_sea_monsters!(picture) > 0
+      puts picture
+      puts picture.map { |row| row.count('#') }.sum
+      exit
+    end
+    rotate_thing_90_degrees!(picture)
+  end
+  picture.reverse!
+end
