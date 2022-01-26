@@ -51,14 +51,13 @@ end
 
 def frickin_life(grid)
   newgrid = grid.dup
-  white_cell_neighbors = {}
+  white_cell_neighbors = Hash.new(0)
   grid.each do |black_cell|
     neighbor_count = 0
     neighboring_coordinates(*black_cell) do |cell|
       if grid.include?(cell)
         neighbor_count += 1
       else
-        white_cell_neighbors[cell] ||= 0
         white_cell_neighbors[cell] += 1
       end
     end
